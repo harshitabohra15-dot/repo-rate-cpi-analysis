@@ -60,9 +60,6 @@ print(cpi.head())
 
 
 import pandas as pd
-
-
-
 cpi = pd.read_csv("CPI_index.csv", skiprows=1)
 cpi = cpi[["Year", "Month", "Combined"]]
 cpi = cpi.rename(columns={"Combined": "cpi"})
@@ -99,9 +96,6 @@ import pandas as pd
 repo = pd.read_csv("monthly_repo_rate.csv")
 cpi = pd.read_csv("monthly_cpi_cleaned.csv")
 
-# Convert month to Period[M]
-repo["month"] = pd.PeriodIndex(repo["month"], freq="M")
-cpi["month"] = pd.PeriodIndex(cpi["month"], freq="M")
 
 # INNER merge → keeps only overlapping months
 final_df = repo.merge(cpi, on="month", how="inner")
@@ -110,9 +104,6 @@ final_df = final_df.sort_values("month")
 
 print(final_df.head())
 print(final_df.tail())
-
-
-
 
 
 
@@ -138,3 +129,4 @@ plt.ylabel("Repo Rate (%)")
 
 plt.tight_layout()
 plt.show()
+
